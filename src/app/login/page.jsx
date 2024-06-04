@@ -1,9 +1,32 @@
 
 
+
+'use client'
+
+import { useState } from 'react'
+import { useRouter } from 'next/navigation'
+import {signIn} from "next-auth/react"
+
+
 const Login = ()=>{
+    const router = useRouter()
+
+    const [data, setData] = useState({
+      email: '',
+      password: '',
+    })
+  
+    const loginUser = async (e)=>{
+        e.preventDefault()
+        signIn('credentials',{
+            ...data,
+            redirect: false
+        })
+        router.push('/dashboard')
+    }
+
     return(
         <>
-            <>
       <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
         <div class="sm:mx-auto sm:w-full sm:max-w-sm">
           <img
@@ -87,6 +110,7 @@ const Login = ()=>{
         </div>
       </div>
     </>
-        </>
     )
 }
+
+export default Login
