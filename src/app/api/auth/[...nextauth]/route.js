@@ -9,5 +9,21 @@ import { PrismaClient } from "@prisma/client"
 const prisma = new PrismaClient()
 
 export const authOptions = {
-    adapter: PrismaAdapter(prisma)
+    adapter: PrismaAdapter(prisma),
+    providers:[
+        CredentialsProvider({
+            name: "credentials",
+            credentials:{
+                username : {label: "username", type: "text", placeholder: "jsmith"},
+                passworld : {label: "password", type: "password"}
+            },
+            async authorize(credentials){
+
+            }
+        })
+    ],
+    session:{
+        strategy: "jwt"
+    },
+    secret: process.env.NEXTAUTH_SECRET
 }
