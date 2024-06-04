@@ -29,7 +29,15 @@ export const authOptions = {
 
                 if(!user) return null
 
-                // check to see if 
+                // check to see if password match
+                const passwordsMatch = await bcrypt.compare(credentials.passworld, user.hashedPassword)
+
+                if(!passwordsMatch) return null
+
+
+                // Return user if user object is valid
+                return useStyleRegistry
+
             }
         })
     ],
