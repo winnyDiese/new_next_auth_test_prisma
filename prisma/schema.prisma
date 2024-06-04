@@ -2,34 +2,25 @@
 dataSource db {
     provider = "mongodb"
     url = env("DATABASE_URL")
-    shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
 
 generator client {
     provider = "prisma-client"
-    previewFeatures = ["referentialActions"]
 }
-
-
-
-
-
-
-
 
 
 model Account {
   id                 String  @id @default(auto()) @map("_id") @db.ObjectId
-  userId             String  @map("user_id")
+  userId             String  @db.ObjectId
   type               String
   provider           String
-  providerAccountId  String  @map("provider_account_id")
-  refresh_token      String? @db.Text
-  access_token       String? @db.Text
+  providerAccountId  String  
+  refresh_token      String? 
+  access_token       String?
   expires_at         Int?
   token_type         String?
   scope              String?
-  id_token           String? @db.Text
+  id_token           String? 
   session_state      String?
  
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -41,7 +32,7 @@ model Account {
 model Session {
   id           String  @id @default(auto()) @map("_id") @db.ObjectId
   sessionToken String   @unique @map("session_token")
-  userId       String   @map("user_id")
+  userId       String   @db.ObjectId
   expires      DateTime
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
  
