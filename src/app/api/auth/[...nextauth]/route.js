@@ -14,11 +14,22 @@ export const authOptions = {
         CredentialsProvider({
             name: "credentials",
             credentials:{
-                username : {label: "username", type: "text", placeholder: "jsmith"},
-                passworld : {label: "password", type: "password"}
+                username : {label: "Username", type: "text", placeholder: "jsmith"},
+                passworld : {label: "Password", type: "password"},
+                email : {label: "Email", type: "email"},
             },
             async authorize(credentials){
+                // check to see if mail and password is valid
+                if(!credentials.email || !credentials.passworld) return
 
+                // Check to see if user exist 
+                const user = await prisma.user.findUnique({
+                    where: {email:redentials.email}
+                })
+
+                if(!user) return null
+
+                // check to see if 
             }
         })
     ],
