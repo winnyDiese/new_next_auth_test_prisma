@@ -1,4 +1,6 @@
 
+'use client'
+
 const Dashboard = ()=>{
     return(
         <div className="p-4">
